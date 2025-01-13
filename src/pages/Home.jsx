@@ -19,7 +19,6 @@ const Home = () => {
       const result = await getDateAPI();
       if (result.status >= 200 && result.status < 300) {
         setAllData(result.data);
-        
       } else {
         console.log('API call failed');
       }
@@ -33,8 +32,6 @@ const Home = () => {
 
 
     try {
-      
-
       await deleteDataAPI(id)
       getData()
     } catch (err) {
@@ -46,11 +43,11 @@ const Home = () => {
   return (
     <>
       <div>
-        <h2 style={{textAlign:'center'}}>Products</h2>
+        <h2 style={{ textAlign: 'center' }}>Products</h2>
         <Link className="btn btn-info" to="/create">
           Create
         </Link>
-        <Table style={{width:'50%',margin:'auto'}} striped bordered hover>
+        <Table style={{ width: '50%', margin: 'auto' }} striped bordered hover>
           <thead>
             <tr>
               <th>No</th>
@@ -63,26 +60,26 @@ const Home = () => {
           <tbody>
 
             {allData?.length > 0 ? (
-              
-              allData.map((video,index) => (
-              
+
+              allData.map((video, index) => (
+
                 <tr key={video.id}>
-                 
-                  <td>{index+1}</td>
+
+                  <td>{index + 1}</td>
                   <td>{video.name}</td>
                   <td>{video.price}</td>
                   <td>
                     <img
                       src={video.imgUrl}
-                      
+
                       style={{ width: '100px' }}
                     />
                   </td>
                   <td>
-                    <Link className="btn btn-info" to={`/create`}>
+                    <Link className="btn btn-info" to={`/update/${video.id}`}>
                       Update
                     </Link>
-                   
+
                     <Button onClick={() => removeData(video?.id)} className="btn btn-danger">
                       Delete
                     </Button>

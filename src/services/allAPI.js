@@ -17,19 +17,17 @@ export const deleteDataAPI = async (id) => {
     return await commonAPI("DELETE", `${SERVICEURL}/users/${id}`, {});
 };
 
-// export const saveDateAPI = async (adminInput, id = null) => {
-//     const method = id ? 'PUT' : 'POST'; // Use PUT for updating
-//     const url = id ? `${SERVICEURL}/users/${id}` : `${SERVICEURL}/users`;
-//     return await commonAPI(method, url, adminInput);
-//   };
+export const updateDataAPI = async (id, adminInput) => {
+    try {
+        if (!id || !adminInput || typeof adminInput !== "object") {
+            throw new Error("Invalid ID or input data");
+        }
+        const response = await commonAPI("PUT", `${SERVICEURL}/users/${id}`, adminInput);
+        return response;
+    } catch (error) {
+        console.error(`Error updating data for ID ${id}:`, error);
+        throw error;
+    }
+};
 
-// export const deleteDataAPI = async (id) => {
-//     try {
-//       const response = await commonAPI("DELETE", `${SERVICEURL}/users/${id}`, {});
-//       return response;  // Assuming the server returns the deleted resource or success status
-//     } catch (error) {
-//       console.error('Error deleting data:', error);
-//       throw new Error('Failed to delete data: ' + error.message);
-//     }
-//   };
 

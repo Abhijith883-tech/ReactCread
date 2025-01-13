@@ -1,110 +1,156 @@
-// import React, { useEffect, useState } from 'react';
-// import { useNavigate, useParams } from 'react-router-dom';
-// import { Button } from 'react-bootstrap';
-// import { getDateAPI, saveDateAPI } from '../services/allAPI.js';
+
+// import axios from 'axios'
+// import React, { useEffect, useState } from 'react'
+// import { useNavigate, useParams } from 'react-router-dom'
 
 // const Update = () => {
-//   const { id } = useParams();
-//   const navigation = useNavigate();
-//   const [product, setProduct] = useState({
-//     name: '',
-//     price: '',
-//     imgUrl: '',
-//   });
+//     const { id } = useParams()
+//     const [values, setValues] = useState({
+//         id: id, // Initialize with the actual id from the URL
+//         name: '',
+//         price: '',
+//         imgUrl: '',
+//     })
 
-//   useEffect(() => {
-//     getProduct();
-//   }, []);
+//     useEffect(() => {
+//         axios.get('http://localhost:3000/users/' + id)
+//             .then(res => {
+//                 setValues({
+//                     ...values,
+//                     name: res.data.name,
+//                     price: res.data.price,
+//                     imgUrl: res.data.imgUrl,
+//                 })
+//             })
+//             .catch(err => console.log(err))
+//     }, [id]) // Add id as dependency to ensure it refetches if the id changes
 
-//   const getProduct = async () => {
-//     try {
-//       const result = await getDateAPI();
-//       if (result.status >= 200 && result.status < 300) {
-//         const productData = result.data.find((item) => item.id === parseInt(id));
-//         setProduct(productData);
-//       } else {
-//         console.log('API call failed');
-//       }
-//     } catch (err) {
-//       console.log(err);
+//     const navigate = useNavigate()
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault()
+//         axios.put('http://localhost:3000/users/' + id, values)
+//             .then(res => {
+//                 navigate('/') // Navigate to the home page after successful update
+//             })
+//             .catch(err => console.log(err))
 //     }
-//   };
 
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setProduct((prevState) => ({
-//       ...prevState,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleUpdate = async () => {
-//     try {
-//       const updatedProduct = await saveDateAPI(product); // Use the save API to update
-//       console.log(updatedProduct);
-//       alert('Product updated successfully');
-//       navigation('/'); // Redirect to the home page
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   return (
-//     <div className="container my-4">
-//       <div className="row">
-//         <div className="col-md-8 mx-auto rounded border p-4">
-//           <h2 className="text-center mb-5">Update Product</h2>
-
-//           <form>
-//             <div className="row mb-3">
-//               <label className="col-sm-4 col-form-label">Name</label>
-//               <div className="col-sm-8">
-//                 <input
-//                   type="text"
-//                   className="form-control"
-//                   name="name"
-//                   value={product.name}
-//                   onChange={handleInputChange}
-//                 />
-//               </div>
-//             </div>
-
-//             <div className="row mb-3">
-//               <label className="col-sm-4 col-form-label">Price</label>
-//               <div className="col-sm-8">
-//                 <input
-//                   type="number"
-//                   className="form-control"
-//                   name="price"
-//                   value={product.price}
-//                   onChange={handleInputChange}
-//                 />
-//               </div>
-//             </div>
-
-//             <div className="row mb-3">
-//               <label className="col-sm-4 col-form-label">Image URL</label>
-//               <div className="col-sm-8">
-//                 <input
-//                   type="text"
-//                   className="form-control"
-//                   name="imgUrl"
-//                   value={product.imgUrl}
-//                   onChange={handleInputChange}
-//                 />
-//               </div>
-//             </div>
-
-//             <div className="row">
-//               <div className="offset-sm-4 col-sm-4 d-grid">
-//                 <Button variant="primary" onClick={handleUpdate}>Update</Button>
-//               </div>
-//             </div>
-//           </form>
+//     return (
+//         <div>
+//             <form onSubmit={handleSubmit}>
+//                 <div>
+//                     <label htmlFor="name">Name</label>
+//                     <input
+//                         type="text"
+//                         name="name"
+//                         value={values.name}
+//                         onChange={e => setValues({ ...values, name: e.target.value })}
+//                     />
+//                 </div>
+//                 <div>
+//                     <label htmlFor="price">Price</label>
+//                     <input
+//                         type="text"
+//                         name="price"
+//                         value={values.price}
+//                         onChange={e => setValues({ ...values, price: e.target.value })}
+//                     />
+//                 </div>
+//                 <div>
+//                     <label htmlFor="imgUrl">ImgUrl</label>
+//                     <input
+//                         type="text"
+//                         name="imgUrl"
+//                         value={values.imgUrl}
+//                         onChange={e => setValues({ ...values, imgUrl: e.target.value })}
+//                     />
+//                 </div>
+//                 <button className="btn btn-info" type="submit">Update</button>
+//             </form>
 //         </div>
-//       </div>
-//     </div>
-//   );
-// };
+//     )
+// }
 
-// export default Update;
+// export default Update
+
+
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { updateDataAPI } from '../services/allAPI.js';  // Import the updateDataAPI function
+import axios from 'axios'
+
+const Update = () => {
+    const { id } = useParams();
+    const [values, setValues] = useState({
+        id: id,  // Initialize the id from the URL parameter
+        name: '',
+        price: '',
+        imgUrl: '',
+    });
+
+    useEffect(() => {
+        // Fetch the current data for this user when the component mounts
+        axios.get(`http://localhost:3000/users/${id}`)
+            .then(res => {
+                setValues({
+                    ...values,
+                    name: res.data.name,
+                    price: res.data.price,
+                    imgUrl: res.data.imgUrl,
+                });
+            })
+            .catch(err => console.log(err));
+    }, [id]);  // Re-fetch when `id` changes
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // Call the update API function from allapi.js
+            await updateDataAPI(id, values);
+            navigate('/');  // Redirect to home after the update
+        } catch (error) {
+            console.error("Error during update:", error);
+        }
+    };
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="name">Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={values.name}
+                        onChange={e => setValues({ ...values, name: e.target.value })}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="price">Price</label>
+                    <input
+                        type="text"
+                        name="price"
+                        value={values.price}
+                        onChange={e => setValues({ ...values, price: e.target.value })}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="imgUrl">ImgUrl</label>
+                    <input
+                        type="text"
+                        name="imgUrl"
+                        value={values.imgUrl}
+                        onChange={e => setValues({ ...values, imgUrl: e.target.value })}
+                    />
+                </div>
+                <button className="btn btn-info" type="submit">Update</button>
+            </form>
+        </div>
+    );
+};
+
+export default Update;
+
