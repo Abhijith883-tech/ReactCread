@@ -45,8 +45,8 @@
 /* Media Query for Small Screens */
 @media (max-width: 768px) {
     .card-container {
-        width: 100%; /* Full width on smaller screens */
-        margin: 10px ; /* Adjust margin */
+        width: 80%; /* Full width on smaller screens */
+        margin: 0 auto ; /* Adjust margin */
     }
 
     .card-buttons {

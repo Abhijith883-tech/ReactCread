@@ -49,7 +49,9 @@ const Home = () => {
         <Link className="btn btn-info" style={{marginLeft:'187px',marginBottom:'23px'}} to="/create">
           Create     
         </Link>
-        <div style={{display:'flex',flexWrap: 'wrap',marginLeft:'187px',gap:'108px'}} className='mb-3' sm={12} md={6} lg={4}>
+        <div id='container' style={{display:'flex',flexWrap: 'wrap', justifyContent: "center",gap:'108px',
+        padding: "30px"
+        }} className='mb-3' sm={12} md={6} lg={4}>
           <Tablee />
         </div>
         
