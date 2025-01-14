@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Update from './components/Update';
+import Tablee from './components/Tablee';
 
 const App = () => {
 
@@ -18,6 +19,8 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/create' element={<Create />} />
         <Route path='/update/:id' element={<Update />} />
+        <Route path='/tablee' element={<Tablee />} />
+
       </Routes>
       <Footer />
     </>

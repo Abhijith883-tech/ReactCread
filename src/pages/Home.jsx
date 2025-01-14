@@ -5,94 +5,54 @@ import { Link } from 'react-router-dom';
 import { deleteDataAPI, getDateAPI } from '../services/allAPI.js';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap'
+import Tablee from '../components/Tablee.jsx';
 
 const Home = () => {
-  const [allData, setAllData] = useState([]);
+  // const [allData, setAllData] = useState([]);
 
-  useEffect(() => {
-    getData();
-  }, []);
-
-
-  const getData = async () => {
-    try {
-      const result = await getDateAPI();
-      if (result.status >= 200 && result.status < 300) {
-        setAllData(result.data);
-      } else {
-        console.log('API call failed');
-      }
-    } catch (err) {
-      console.log(err);
-    }
-
-  };
-
-  const removeData = async (id) => {
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
 
-    try {
-      await deleteDataAPI(id)
-      getData()
-    } catch (err) {
-      console.log(err);
+  // const getData = async () => {
+  //   try {
+  //     const result = await getDateAPI();
+  //     if (result.status >= 200 && result.status < 300) {
+  //       setAllData(result.data);
+  //     } else {
+  //       console.log('API call failed');
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
 
-    }
-  }
+  // };
+
+  // const removeData = async (id) => {
+
+
+  //   try {
+  //     await deleteDataAPI(id)
+  //     getData()
+  //   } catch (err) {
+  //     console.log(err);
+
+  //   }
+  // }
 
   return (
     <>
       <div>
-        <h2 style={{ textAlign: 'center' }}>Products</h2>
-        <Link className="btn btn-info" to="/create">
-          Create
+        <h2 style={{ textAlign: 'center',marginTop:'60px' }}>Products</h2>
+        <Link className="btn btn-info" style={{marginLeft:'187px',marginBottom:'23px'}} to="/create">
+          Create     
         </Link>
-        <Table style={{ width: '50%', margin: 'auto' }} striped bordered hover>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Image</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            {allData?.length > 0 ? (
-
-              allData.map((video, index) => (
-
-                <tr key={video.id}>
-
-                  <td>{index + 1}</td>
-                  <td>{video.name}</td>
-                  <td>{video.price}</td>
-                  <td>
-                    <img
-                      src={video.imgUrl}
-
-                      style={{ width: '100px' }}
-                    />
-                  </td>
-                  <td>
-                    <Link className="btn btn-info" to={`/update/${video.id}`}>
-                      Update
-                    </Link>
-
-                    <Button onClick={() => removeData(video?.id)} className="btn btn-danger">
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4">No Data is Added...</td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
+        <div style={{display:'flex',flexWrap: 'wrap',marginLeft:'187px',gap:'108px'}} className='mb-3' sm={12} md={6} lg={4}>
+          <Tablee />
+        </div>
+        
       </div>
     </>
   );

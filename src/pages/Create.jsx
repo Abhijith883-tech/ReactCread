@@ -296,11 +296,7 @@ const Create = () => {
             <div className='row mb-3'>
               <label className='col-sm-4 col-form-label'>Name</label>
               <div className='col-sm-8'>
-                <input
-                  onChange={(e) => setAdminInput({ ...adminInput, name: e.target.value })}
-                  className='form-control'
-                  name='name'
-                />
+                <input onChange={(e) => setAdminInput({ ...adminInput, name: e.target.value })}className='form-control' name='name'/>
                 <span className='text-danger'>{errors.name}</span>
               </div>
             </div>
@@ -308,12 +304,7 @@ const Create = () => {
             <div className='row mb-3'>
               <label className='col-sm-4 col-form-label'>Price</label>
               <div className='col-sm-8'>
-                <input
-                  type='number'
-                  onChange={(e) => setAdminInput({ ...adminInput, price: e.target.value })}
-                  className='form-control'
-                  name='price'
-                />
+                <input type='number' onChange={(e) => setAdminInput({ ...adminInput, price: e.target.value })} className='form-control' name='price' />
                 <span className='text-danger'>{errors.price}</span>
               </div>
             </div>
@@ -321,11 +312,7 @@ const Create = () => {
             <div className='row mb-3'>
               <label className='col-sm-4 col-form-label'>Image</label>
               <div className='col-sm-8'>
-                <input
-                  onChange={(e) => setAdminInput({ ...adminInput, imgUrl: e.target.value })}
-                  className='form-control'
-                  name='image'
-                />
+                <input onChange={(e) => setAdminInput({ ...adminInput, imgUrl: e.target.value })} className='form-control' name='image'/>
                 <span className='text-danger'>{errors.imgUrl}</span>
               </div>
             </div>
