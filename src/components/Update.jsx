@@ -91,7 +91,7 @@ const Update = () => {
 
     useEffect(() => {
         // Fetch the current data for this user when the component mounts
-        axios.get(`http://localhost:3000/users/${id}`)
+        axios.get(`https://creadserver.onrender.com/users/${id}`)
             .then(res => {
                 setValues({
                     ...values,
@@ -117,37 +117,44 @@ const Update = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="name">Name</label>
+        <div className='container my-4'>
+      <div className='row'>
+      <div className='col-md-8 mx-auto rounded border p-4'>
+      <form onSubmit={handleSubmit}>
+                <div className='row mb-3'>
+                    <label className='col-sm-4 col-form-label' htmlFor="name">Name</label>
                     <input
                         type="text"
                         name="name"
                         value={values.name}
+                        className='form-control'
                         onChange={e => setValues({ ...values, name: e.target.value })}
                     />
                 </div>
-                <div>
-                    <label htmlFor="price">Price</label>
+                <div className='row mb-3'>
+                    <label className='col-sm-4 col-form-label' htmlFor="price">Price</label>
                     <input
                         type="text"
                         name="price"
                         value={values.price}
+                        className='form-control'
                         onChange={e => setValues({ ...values, price: e.target.value })}
                     />
                 </div>
-                <div>
+                <div className='row mb-3'>
                     <label htmlFor="imgUrl">ImgUrl</label>
                     <input
                         type="text"
                         name="imgUrl"
                         value={values.imgUrl}
+                        className='form-control'
                         onChange={e => setValues({ ...values, imgUrl: e.target.value })}
                     />
                 </div>
                 <button className="btn btn-info" type="submit">Update</button>
             </form>
+        </div>
+        </div>
         </div>
     );
 };

@@ -112,7 +112,7 @@ const Tablee = () => {
             {allData?.length > 0 ? (
                 allData.map((dataa, index) => (
                     <div key={dataa.id} className="card-container">
-                        <img src={dataa.imgUrl} alt="Kitten" className="card-img" />
+                        <img style={{width:'100%'}} src={dataa.imgUrl} alt="Kitten" className="card-img" />
                         <div className="card-content">
                             <h3 className="card-title">Name : {dataa.name}</h3>
                             <p className="card-price">Price : {dataa.price}</p>

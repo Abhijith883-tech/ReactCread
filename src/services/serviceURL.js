@@ -1,3 +1,3 @@
-const SERVICEURL="http://localhost:3000"
+const SERVICEURL="https://creadserver.onrender.com"
 
 export default SERVICEURL
